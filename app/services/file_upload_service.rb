@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class FileUploadService
-  def upload(file_content:, file_name:, extension:)
+  def upload(file_content:, file_name:)
     uuid = SecureRandom.uuid
     bucket_name = 'rudph2xxximageservicexxxtest'
-    s3 = Aws::S3::Resource.new(region:'eu-west-2')
+    s3 = Aws::S3::Resource.new
 
     bucket = s3.bucket(bucket_name)
     data = Base64.decode64(file_content)
