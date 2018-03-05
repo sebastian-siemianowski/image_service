@@ -4,7 +4,7 @@ class FileUploadService
   attr_accessor :uuid
 
   def upload(file_content:, file_name:)
-    bucket_name = 'rudph2xxximageservicexxxtest'
+    bucket_name = BUCKET_NAME
     s3 = Aws::S3::Resource.new
 
     bucket = s3.bucket(bucket_name)
