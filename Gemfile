@@ -24,12 +24,17 @@ gem 'puma', '~> 3.11'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'apipie-rails'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec'
+  gem 'brakeman'
+  gem 'bundler-audit'
+  gem 'factory_girl_rails'
 end
 
 group :development do
@@ -37,6 +42,17 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'rubocop'
+end
+
+group :test do
+  gem 'factory_girl', '~> 4.8.0'
+  gem 'json_matchers'
+  gem 'rspec-rails', '~> 3.5' # Rails unit tests framework
+  gem 'rspec_junit_formatter' # Allows to inspect rspec output as junit output in jenkins
+  gem 'shoulda-matchers'
+  gem 'simplecov' # Ruby unit tests framework
+  gem 'simplecov-rcov' # Allows to inspect simplecov output in jenkins
 end
 
 
