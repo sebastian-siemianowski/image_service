@@ -11,11 +11,10 @@ class FileRetrievalService
       file = bucket.objects(prefix: "images/#{file_reference}/.#{extension}/").collect(&:key).first
     end
 
-    puts file
-    puts object = bucket.object(file)
-    object = bucket.object(file).get
-        object.body
-
-    object.body
+    if file
+      bucket.object(file).get.body
+    else
+      nil
+    end
   end
 end
