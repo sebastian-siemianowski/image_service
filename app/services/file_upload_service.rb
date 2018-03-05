@@ -19,7 +19,7 @@ class FileUploadService
     else
       new_uuid_key = SecureRandom.uuid unless uuid
       original_file = bucket.object("images/#{new_uuid_key}/original/#{file_name}")
-      original_file.put(body: data , acl: 'public-read')
+      original_file.put(body: data, acl: 'public-read')
 
       file_with_extension = bucket.object("images/#{new_uuid_key}/#{File.extname(file_name)}/#{file_name}")
       file_with_extension.put(body: data, acl: 'public-read')

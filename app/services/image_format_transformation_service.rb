@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class ImageFormatTransformationService
   attr_accessor :image_blob, :format
 
   def whitelist
-    %w(jpg jpeg png pdf bmp tif tiff)
+    %w[jpg jpeg png pdf bmp tif tiff]
   end
 
   def convert
@@ -13,5 +15,4 @@ class ImageFormatTransformationService
     image.format(format)
     image.to_blob
   end
-
 end

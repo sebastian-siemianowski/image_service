@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe FileRetrievalService do
   subject { described_class.new }
-  
+
   let(:file_reference) do
     FileUploadService.new.upload(file_content: file_content_base64,
                                  file_name: file_name)

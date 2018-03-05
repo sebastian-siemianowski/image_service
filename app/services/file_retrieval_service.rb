@@ -8,32 +8,36 @@ class FileRetrievalService
     bucket = s3.bucket(bucket_name)
     original_prefix = "images/#{file_reference}/original/"
     original_file = bucket.objects(prefix: original_prefix).collect(&:key).first
-    puts '1'
-    puts original_file
-    puts original_prefix
-    return bucket.object(original_file).get.body if extension.nil?
+    raise ArgumentError, 'No Referenced File was found' unless original_file
+    original_image_body = bucket.object(original_file).get.body
+    return original_image_body if extension.nil?
 
     extension_file = bucket.objects(prefix: "images/#{file_reference}/.#{extension}/").collect(&:key).first
-    puts extension_file
-    puts '2'
     return bucket.object(extension_file).get.body if extension_file
 
+    new_image = transform_image(bucket, extension, original_file)
+
+    upload_new_version_of_the_image(extension, file_reference, new_image, original_file, original_prefix)
+
+    extension_file = bucket.objects(prefix: "images/#{file_reference}/.#{extension}/").collect(&:key).first
+    bucket.object(extension_file).get.body
+  end
+
+  private
+
+  def upload_new_version_of_the_image(extension, file_reference, new_image, original_file, original_prefix)
+    file_name = original_file.gsub(original_prefix, '')
+    file_name_without_extension = file_name.gsub(File.extname(original_file), '')
+    new_file_name = "#{file_name_without_extension}.#{extension}"
+    file_upload_service = FileUploadService.new
+    file_upload_service.uuid = file_reference
+    file_upload_service.upload(file_content: new_image, file_name: new_file_name)
+  end
+
+  def transform_image(bucket, extension, original_file)
     transformation_service = ImageFormatTransformationService.new
     transformation_service.format = extension
     transformation_service.image_blob = bucket.object(original_file).get.body
     new_image = transformation_service.convert
-    puts '3'
-    file_name = original_file.gsub(original_prefix, '')
-    puts file_name
-    file_name_without_extension = file_name.gsub(File.extname(original_file), '')
-    file_upload_service = FileUploadService.new
-    file_upload_service.uuid = file_reference
-    new_file_name = "#{file_name_without_extension}.#{extension}"
-    puts new_file_name
-    file_upload_service.upload(file_content: new_image, file_name: new_file_name)
-
-    extension_file = bucket.objects(prefix: "images/#{file_reference}/.#{extension}/").collect(&:key).first
-    puts extension_file
-    bucket.object(extension_file).get.body
   end
 end

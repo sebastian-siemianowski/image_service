@@ -1,21 +1,13 @@
+# frozen_string_literal: true
+
 class ImageController < ApplicationController
-  def show
+  def show; end
 
-  end
+  def create; end
 
-  def create
+  def update; end
 
-  end
+  def destroy; end
 
-  def update
-
-  end
-
-  def destroy
-
-  end
-
-  def index
-
-  end
+  def index; end
 end
