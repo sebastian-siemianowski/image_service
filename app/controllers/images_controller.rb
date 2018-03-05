@@ -4,7 +4,6 @@ class ImagesController < ApplicationController
   def show
     retrieved_object = FileRetrievalService.new.retrieve(file_reference: image_retrieval_params[:id],
                                                          extension: image_retrieval_params[:extension])
-    # Rails.logger.info retrieved_object.string.encode(:)
     render status: :ok, json: { retrieved_object: Base64.encode64(retrieved_object.string) }
   end
 
