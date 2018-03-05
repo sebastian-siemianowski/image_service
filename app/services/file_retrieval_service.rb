@@ -8,11 +8,14 @@ class FileRetrievalService
     if extension.nil?
       file = bucket.objects(prefix: "images/#{file_reference}/original/").collect(&:key).first
     else
-      file = bucket.objects(prefix: "images/#{file_reference}#{extension}").collect(&:key).first
+      file = bucket.objects(prefix: "images/#{file_reference}/.#{extension}/").collect(&:key).first
     end
 
-    object = bucket.object(file).get.body
+    puts file
+    puts object = bucket.object(file)
+    object = bucket.object(file).get
+        object.body
 
-    object
+    object.body
   end
 end

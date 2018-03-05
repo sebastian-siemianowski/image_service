@@ -12,15 +12,15 @@ describe FileRetrievalService do
   let(:file_content_base64) { Base64.strict_encode64(file_content) }
   let(:file_name) { 'hamster.jpg' }
 
-  it 'returns original file if the file was uploaded and no extension was provided' do
-    expect(subject.retrieve(file_reference).string).to eq file_content
-  end
+  # it 'returns original file if the file was uploaded and no extension was provided' do
+  #   expect(subject.retrieve(file_reference).string).to eq file_content
+  # end
 
   it 'return extension file if the file was uploaded and present' do
-    expect(subject.retrieve(file_reference).string).to eq file_content
+    expect(subject.retrieve(file_reference, 'jpg').string).to eq file_content
   end
 
-  it 'returns transformed file if the file was uploaded but the extension is not present' do
-    
-  end
+  # it 'returns transformed file if the file was uploaded but the extension is not present' do
+  #
+  # end
 end
