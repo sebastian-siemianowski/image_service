@@ -9,10 +9,8 @@ class FileUploadService
 
     bucket = s3.bucket(bucket_name)
     data = Base64.decode64(file_content)
-    puts file_name
 
     if uuid
-      puts file_name
       file_with_extension = bucket.object("images/#{uuid}/#{File.extname(file_name)}/#{file_name}")
       file_with_extension.put(body: data, acl: 'public-read')
       uuid

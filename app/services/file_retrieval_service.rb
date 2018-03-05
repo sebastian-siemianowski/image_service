@@ -38,6 +38,6 @@ class FileRetrievalService
     transformation_service = ImageFormatTransformationService.new
     transformation_service.format = extension
     transformation_service.image_blob = bucket.object(original_file).get.body
-    new_image = transformation_service.convert
+    transformation_service.convert
   end
 end
