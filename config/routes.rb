@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   apipie
   scope :api, defaults: { format: :json } do
     scope '(:version)' do
-      resources :images, only: %i[create show]
+      resources :images, only: %i[create]
+      resources :images, only: :show
     end
   end
   get '*path', to: 'errors#index', via: :all
