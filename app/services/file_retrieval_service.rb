@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class FileRetrievalService
+
+
   def retrieve(file_reference:, extension: nil)
     s3 = Aws::S3::Resource.new
-    bucket_name = 'rudph2xxximageservicexxxtest'
+    bucket_name = BUCKET_NAME
 
     bucket = s3.bucket(bucket_name)
     original_prefix = "images/#{file_reference}/original/"
