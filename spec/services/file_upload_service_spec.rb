@@ -13,6 +13,6 @@ describe FileUploadService do
   it 'returns the unique reference id' do
     expect(subject.upload(file_content: file_content_base64,
                           file_name: file_name,
-                          format: format)).to be_a String
+                          extension: format )).to be_a String
   end
 end
