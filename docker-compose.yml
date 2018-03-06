@@ -1,0 +1,21 @@
+version: '3.0'
+
+services:
+  postgres:
+    image: postgres:9.4
+    ports:
+      - "5432"
+  rails: &backend_base
+    build: ./backend
+    environment:
+      AWS_ACCESS_KEY_ID: "AKIAJEMAIVHNRUKYY4BQ"
+      AWS_SECRET_ACCESS_KEY: "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"
+      BUCKET_NAME: "rudph2xxximageservicexxxtest"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/usr/src
+    tty: true
+    stdin_open: true
+    links:
+        - postgres

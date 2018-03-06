@@ -5,7 +5,7 @@ class FileUploadService
 
   def upload(file_content:, file_name:)
     bucket_name = BUCKET_NAME
-    s3 = Aws::S3::Resource.new
+    s3 = Aws::S3::Resource.new(region: 'eu-west-2')
 
     bucket = s3.bucket(bucket_name)
     data = Base64.decode64(file_content)
